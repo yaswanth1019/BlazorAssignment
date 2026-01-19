@@ -1,0 +1,94 @@
+﻿/* GLOBAL CSS - Overrides everything */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: linear-gradient(180deg, #0d6d4f 0%, #0a5940 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+
+.sidebar-header {
+    padding: 24px;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.subtitle {
+    font-size: 13px;
+    opacity: 0.85;
+}
+
+.separator {
+    height: 1px;
+    background: rgba(255,255,255,0.4);
+    margin: 8px 24px 16px;
+}
+
+/* BASE NAV STYLES */
+.sidebar .nav-item {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 12px !important;
+    color: white !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    position: relative;
+    width:220px;
+}
+
+/* LINE ITEMS */
+.sidebar .line-item::before,
+.sidebar .line-item::after {
+    content: "";
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    height: 1px;
+    background: rgba(255,255,255,0.4);
+}
+
+.sidebar .line-item::before {
+    top: 0;
+}
+
+.sidebar .line-item::after {
+    bottom: 0;
+}
+
+/* HOVER */
+.sidebar .nav-item:hover {
+    background: rgba(255,255,255,0.08) !important;
+}
+
+/* ACTIVE STATE - BULLETPROOF */
+.sidebar .nav-item.active,
+.sidebar .nav-item[aria-current="page"],
+.sidebar a[aria-current="page"] {
+    background: #e8f4f0 !important;
+    color: #0d6d4f !important;
+    border-radius: 6px !important;
+    margin: 4px 12px !important;
+    padding: 14px 24px 14px 12px !important;
+}
+
+.icon {
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.dropdown-arrow {
+    margin-left: auto;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding-bottom: 12px;
+}

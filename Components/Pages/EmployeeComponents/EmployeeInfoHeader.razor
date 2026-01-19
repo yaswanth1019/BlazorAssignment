@@ -1,0 +1,25 @@
+﻿<div class="header">
+    <div class="company-logo">
+        <div class="logo-box">
+            <span class="logo-text-green">CHAMUNDI</span>
+            <span class="logo-text-red">DIE CAST (P) LTD.</span>
+        </div>
+    </div>
+    <h2 class="page-title">@Title</h2>
+    <div class="header-actions">
+        <button class="icon-btn" @onclick="OnNotificationClick">🔔</button>
+        <button class="icon-btn" @onclick="OnSearchClick">🔍</button>
+        <button class="icon-btn" @onclick="OnSettingsClick">⚙</button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = "Employee Information";
+    [Parameter]
+    public EventCallback OnNotificationClick { get; set; }
+    [Parameter]
+    public EventCallback OnSearchClick { get; set; }
+    [Parameter]
+    public EventCallback OnSettingsClick { get; set; }
+}

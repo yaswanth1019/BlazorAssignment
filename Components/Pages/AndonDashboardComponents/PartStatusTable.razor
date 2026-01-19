@@ -1,0 +1,33 @@
+﻿@using BlazorAssignment.Models
+
+<div class="part-table-wrapper">
+    <table class="part-table">
+        <thead>
+            <tr class="row header">
+                <th>Part Number</th>
+                <th>Count / Target</th>
+                <th>% Completion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Parts)
+            {
+                var percent = Math.Min(100, Math.Round((double)p.Count / p.Target * 100, 1));
+                <tr class="row data-row">
+                    <td class="part-no">@p.PartNo</td>
+                    <td class="count">@p.Count/@p.Target</td>
+                    <td class="progress-cell">
+                        <div class="percent">@percent%</div>
+                        <div class="progress">
+                            <div class="fill" style="width: @(percent)%"></div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    [Parameter] public List<PartStatus> Parts { get; set; } = [];
+}

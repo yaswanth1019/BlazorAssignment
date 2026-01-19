@@ -1,0 +1,42 @@
+﻿.andon-header {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #0d6d4f 0%, #0a5940 100%);
+}
+
+.logo {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.title h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.title span {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.meta {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+}
+
+    .meta div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .meta label {
+        font-size: 12px;
+        opacity: 0.7;
+    }

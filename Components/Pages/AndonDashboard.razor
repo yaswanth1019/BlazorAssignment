@@ -1,0 +1,79 @@
+﻿@page "/dashboard"
+@using System
+@using System.Threading
+@using BlazorAssignment.Services
+@using BlazorAssignment.Helper
+@inject AndonRealtimeService Service
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@implements IDisposable
+
+<PageTitle>Andon Dashboard</PageTitle>
+
+<AndonHeader Date="state.DateTime" />
+<div class="content">
+    <PartStatusTable Parts="state.Parts" />
+    <div class="charts">
+        <ShiftChartJs @ref="bChart" 
+                      PartNo="B1223450"
+                      CanvasId="chart-b"
+                      Labels="@bLabels"
+                      Values="@BValues" />
+                      
+        <ShiftChartJs @ref="cChart" 
+                      PartNo="C1223450"
+                      CanvasId="chart-c"
+                      Labels="@cLabels"
+                      Values="@CValues" />
+                      
+        <ShiftChartJs @ref="dChart" 
+                      PartNo="D1223450"
+                      CanvasId="chart-d"
+                      Labels="@dLabels"
+                      Values="@DValues" />
+    </div>
+</div>
+@* <KpiFooter /> *@
+
+@code {
+    private BlazorAssignment.Models.AndonState state = new();
+    private Timer? timer;
+    private bool disposed;
+
+    private ShiftChartJs? bChart, cChart, dChart;
+    private string[] bLabels = new[] { "S-05", "S-06" };
+    private string[] cLabels = new[] { "S-07" };
+    private string[] dLabels = new[] { "S-08" };
+
+    private int[] BValues => state.ShiftCounts.TryGetValue("B1223450", out var v) ? v : Array.Empty<int>();
+    private int[] CValues => state.ShiftCounts.TryGetValue("C1223450", out var v) ? v : Array.Empty<int>();
+    private int[] DValues => state.ShiftCounts.TryGetValue("D1223450", out var v) ? v : Array.Empty<int>();
+
+    protected override void OnInitialized()
+    {
+        state = Service.GetState();
+        timer = new Timer(UpdateData, null, 0, 3000);
+    }
+
+    private async void UpdateData(object? _)
+    {
+        if (disposed) return;
+
+        var newState = Service.GetState();
+        await InvokeAsync(async () =>
+        {
+            state = newState;
+
+            if (bChart is not null) await bChart.Update(BValues);
+            if (cChart is not null) await cChart.Update(CValues);
+            if (dChart is not null) await dChart.Update(DValues);
+
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        disposed = true;
+        timer?.Dispose();
+    }
+}

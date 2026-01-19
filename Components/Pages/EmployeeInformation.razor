@@ -1,0 +1,84 @@
+﻿@page "/employee-information"
+@using BlazorAssignment.Components.Layout
+@inject EmployeeService EmployeeService
+@inject NavigationManager Navigation
+
+<div class="app-container">
+    <div class="main-content">
+        <EmployeeInfoHeader Title="Employee Information"
+                OnNotificationClick="HandleNotification"
+                OnSearchClick="HandleSearch"
+                OnSettingsClick="HandleSettings" />
+
+        <div class="content-wrapper">
+            <EmployeeCard EmployeeIds="employeeIds"
+                          Employee="currentEmployee"
+                          OnViewEmployee="ViewEmployee"
+                          OnAddEmployee="AddNewEmployee"
+                          OnDeleteEmployee="DeleteEmployee" />
+        </div>
+
+        <div class="content-footer">
+            <div class="footer-logo">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLDDWEg9vRGaYgfQutieE0nlo4sSPSc4sdGQAiiFtBG6XorhZSQ5af&usqp=CAE&s" alt="Ace Logo" />
+            </div>
+            <div class="footer-logo-right">
+                <img src="data:image/png+xml;base64,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" alt="Blazor Logo" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<string> employeeIds = new();
+    private EmployeeModel? currentEmployee;
+
+    protected override void OnInitialized()
+    {
+        employeeIds = EmployeeService.GetEmployeeIds();
+
+        // Load first employee by default
+        if (employeeIds.Any())
+        {
+            currentEmployee = EmployeeService.GetEmployeeById(employeeIds.First());
+        }
+    }
+
+    private void ViewEmployee(string employeeId)
+    {
+        currentEmployee = EmployeeService.GetEmployeeById(employeeId);
+    }
+
+    private void AddNewEmployee()
+    {
+        // Navigate to add employee page or show modal
+        Navigation.NavigateTo("/employee/add");
+        Console.WriteLine("Add new employee clicked");
+    }
+
+    private void DeleteEmployee(string employeeId)
+    {
+        EmployeeService.DeleteEmployee(employeeId);
+
+        employeeIds = EmployeeService.GetEmployeeIds();
+
+        currentEmployee = employeeIds.Any()
+            ? EmployeeService.GetEmployeeById(employeeIds.First())
+            : null;
+    }
+
+    private void HandleNotification()
+    {
+        Console.WriteLine("Notification clicked");
+    }
+
+    private void HandleSearch()
+    {
+        Console.WriteLine("Search clicked");
+    }
+
+    private void HandleSettings()
+    {
+        Console.WriteLine("Settings clicked");
+    }
+}
