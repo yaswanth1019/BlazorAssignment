@@ -2,6 +2,7 @@
 
 namespace BlazorAssignment.Services
 {
+    // Employee serverice
     public class EmployeeService
     {
         private readonly List<EmployeeModel> employees = new()
