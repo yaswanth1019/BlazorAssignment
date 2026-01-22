@@ -10,19 +10,27 @@
             </tr>
         </thead>
         <tbody>
+            @{
+                var index = 0;
+            }
+
             @foreach (var p in Parts)
             {
                 var percent = Math.Min(100, Math.Round((double)p.Count / p.Target * 100, 1));
-                <tr class="row data-row">
+                var isSelected = index < 3;   // 🔥 HARD-CODED TOP 3
+
+                <tr class="row data-row @(isSelected ? "selected" : "")">
                     <td class="part-no">@p.PartNo</td>
                     <td class="count">@p.Count/@p.Target</td>
                     <td class="progress-cell">
                         <div class="percent">@percent%</div>
                         <div class="progress">
-                            <div class="fill" style="width: @(percent)%"></div>
+                            <div class="fill" style="width:@percent%"></div>
                         </div>
                     </td>
                 </tr>
+
+                index++;
             }
         </tbody>
     </table>

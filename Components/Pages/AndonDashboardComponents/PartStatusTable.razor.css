@@ -1,32 +1,52 @@
-﻿/* wrapper – same component */
+﻿/* =========================
+   CONTAINER
+   ========================= */
 .part-table-wrapper {
-    width: 600px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    overflow: hidden;
+    width: 620px;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 14px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.1);
     font-size: 14px;
+    width : 45%;
+
 }
 
-/* table – SAME component → NO ::deep */
+/* =========================
+   TABLE BASE
+   ========================= */
 .part-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0 14px; /* 🔥 vertical gap between rows */
     table-layout: fixed;
 }
 
-/* header row */
+/* =========================
+   HEADER
+   ========================= */
 .row.header th {
-    background: linear-gradient(90deg, #0d6d4f 0%, #0a5940 100%);
-    color: white;
+    background: #ffffff;
+    color: #0f7b57;
     font-weight: 700;
-    text-transform: uppercase;
     font-size: 13px;
-    padding: 16px 20px;
-    text-align: left;
+    padding: 14px 18px;
+    border-top: 2px solid #e6e6e6;
+    border-bottom: 2px solid #e6e6e6;
+    text-align:center;
 }
 
-    /* column widths */
+    .row.header th:first-child {
+        border-radius: 14px 0 0 14px;
+    }
+
+    .row.header th:last-child {
+        border-radius: 0 14px 14px 0;
+    }
+
+    /* =========================
+   COLUMN WIDTHS
+   ========================= */
     .part-no,
     .row.header th:first-child {
         width: 30%;
@@ -36,6 +56,7 @@
     .row.header th:nth-child(2) {
         width: 25%;
         text-align: center;
+        font-weight: 600;
     }
 
     .progress-cell,
@@ -43,45 +64,97 @@
         width: 45%;
     }
 
-/* body rows */
+/* =========================
+   BASE ROW
+   ========================= */
+
+tbody tr{
+    height: 50px;
+    margin-bottom: 15px;
+}
 .data-row td {
-    padding: 16px 20px;
-    border-bottom: 1px solid #f0f0f0;
+    padding: 16px 18px;
+    background: #ffffff;
     vertical-align: middle;
-    white-space: nowrap;
 }
 
-.data-row:last-child td {
-    border-bottom: none;
+    /* pill edges */
+    .data-row td:first-child {
+        border-radius: 10px 0 0 10px;
+    }
+
+    .data-row td:last-child {
+        border-radius: 0 10px 10px 0;
+    }
+
+/* =========================
+   SELECTED TOP 3 ROWS
+   ========================= */
+.data-row.selected td {
+    background: #7bc99a;
+    color: #ffffff;
+    /*box-shadow: 0 6px 14px rgba(0,0,0,0.08);*/ /* 🔥 separation illusion */
 }
 
-.data-row:hover {
-    background-color: #f8f9fa;
+/* stronger text */
+.data-row.selected .part-no,
+.data-row.selected .count,
+.data-row.selected .percent {
+    font-weight: 700;
+    color: #ffffff;
 }
 
-/* progress */
+/* progress bar inside selected row */
+.data-row.selected .progress {
+    background: rgba(255,255,255,0.45);
+}
+
+.data-row.selected .fill {
+    background: #0b5f44;
+}
+
+/* =========================
+   PROGRESS BAR
+   ========================= */
 .progress-cell {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.progress {
-    height: 6px;
-    background: #e8f4f0;
-    border-radius: 3px;
-    margin-top: 6px;
-    overflow: hidden;
-}
-
-.fill {
-    height: 100%;
-    background: linear-gradient(90deg, #4caf50, #8bc34a);
-    transition: width 0.6s ease;
+    align-items: inherit;
+    justify-content : center;
+    gap: 20px;
 }
 
 .percent {
-    font-weight: 600;
-    color: #0d6d4f;
     font-size: 13px;
+    font-weight: 400;
+}
+
+/* track */
+.progress {
+    height: 8px;
+    width : 50%;
+    background: #e3efe9;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+/* fill */
+.fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4caf50, #8bc34a);
+    border-radius: 6px;
+}
+
+/* =========================
+   NON-SELECTED ROWS
+   ========================= */
+.data-row:not(.selected) .percent {
+    color: #0d6d4f;
+}
+
+.data-row:not(.selected) .progress {
+    background: #e3efe9;
+}
+
+.data-row:not(.selected) .fill {
+    background: linear-gradient(90deg, #4caf50, #8bc34a);
 }
